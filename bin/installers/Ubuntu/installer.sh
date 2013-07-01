@@ -13,7 +13,7 @@ if extract_package_files; then
 
 ---------------------------------------------------------------------------
 The node-oracle module and the Oracle specific libraries have been
-installed in `pwd`. 
+installed in `pwd`.
 
 The default bashrc (/etc/bashrc) or  user's bash_profile (~/.bash_profile)
 paths have been modified to use this path. If you use a shell other than
