@@ -2,11 +2,16 @@
 var name = "asteroid-oracle-installer";
 
 
-/*!  Print usage message.  */
-console.log("You should not need to source in this module %s", name);
-console.log("Instead just source in the node-oracle module (require oracle)");
-
-
 /*  Exports.  */
 exports.oracle = require('oracle');
+
+
+/*!  Print usage message.  */
+console.log("");
+console.log("%s: You should not need to source in this module.", name);
+console.log("Instead just source in the node-oracle module.");
+console.log("");
+console.log("Example:");
+console.log("  var oracle = require('oracle');");
+console.log("");
 
