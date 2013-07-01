@@ -1,0 +1,33 @@
+{
+  "name": "StrongLoop-Node-Oracle-Installer",
+  "version": "0.1.0",
+  "description": "StrongLoop Node Oracle Installer", 
+  "keywords": [ "StrongLoop", "Node.js", "Oracle" ],
+  "author": {
+    "name": "ramr",
+    "email": "ramr@example.org",
+    "url":  "http://www.strongloop.com/"
+  },
+  "homepage": "http://www.strongloop.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://gitub.com/strongloop/node-oracle-installer"
+  },
+
+  "engines": {
+    "node": ">= 0.10.0",
+    "npm": ">= 1.0.0"
+  },
+
+  "dependencies": {
+  },
+  "devDependencies": {},
+  "bundleDependencies": [],
+
+  "scripts": {
+    "install": "node pkginstall.js"
+  },
+
+  "private": true,
+  "main": "index.js"
+}

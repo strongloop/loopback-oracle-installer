@@ -1,0 +1,203 @@
+#!/bin/bash
+
+lib_dir=$(dirname "${BASH_SOURCE[0]}")
+
+export ASTEROID_ORACLE_BASE_PACKAGE="asteroid-oracle"
+export ASTEROID_ORACLE_INSTALL_PACKAGE="asteroid-oracle-installer"
+export ASTEROID_ORACLE_INSTALL_VERSION=$(cat $lib_dir/VERSION)
+
+#  For testing purposes, this is commented out.
+#  Needs to be set to the download location.
+# export ASTEROID_DOWNLOAD_URI="http://www.strongloop.com/downloads/$ASTEROID_ORACLE_INSTALL_PACKAGE"
+
+nmdir="$lib_dir/../../node_modules"
+[ ! -d "$nmdir" ] && nmdir="$lib_dir/../node_modules"
+[ -d "$nmdir" ]  || mkdir -p "$nmdir"
+INSTALL_DIR=$(cd -P -- "$nmdir" && pwd -P)
+
+STRONGLOOP_INSTALL_PLATFORM="Unknown"
+STRONGLOOP_INSTALL_OS="Unknown"
+STRONGLOOP_INSTALL_ARCH="Unknown"
+
+
+
+#
+#  Print error message and exit with the specified code.
+#
+#  Examples:
+#    die 'This sucks!' 101
+#
+function die() {
+  [ -n "$1" ] && echo "$1"
+  exit ${2:-"-1"}
+
+}  #  End of function  die.
+
+
+#
+#  Prints the specified message - formatted.
+#
+#  Examples:
+#    print_message "Initializing ..."
+#
+function print_message() {
+  # echo "$@" | sed "s/^/\t/"
+  if [ -n "$@" ]; then
+    echo "  $@"
+  else
+    echo ""
+  fi
+
+  return 0
+
+}  #  End of function  print_message.
+
+
+#
+#  Checks if the linux distro is Ubuntu.
+#
+#  Examples:
+#    ubuntu_check
+#
+function ubuntu_check() {
+  local etc_issue="/etc/issue"
+  local ubuntu_rel="/usr/bin/lsb_release"
+  [ -f "$etc_issue" ] && desc=$(cat "$etc_issue" | sed 's/\\[a-z]//g')
+  [ -z "$desc" ] && [ -f "$ubuntu_rel" ] && \
+    desc=$($ubuntu_rel -d 2> /dev/null | sed 's/Description\:\s*//g')
+
+  if [[ "$desc" =~ Ubuntu.* ]]; then
+    export STRONGLOOP_INSTALL_PLATFORM="Ubuntu"
+    return 0
+  fi
+
+  return 1
+
+}  #  End of function  ubuntu_check.
+
+
+#
+#  Checks if the linux distro is RHEL.
+#
+#  Examples:
+#    rhel_check
+#
+function rhel_check() {
+  local rhel_release="/etc/redhat-release"
+  [ -f "$rhel_release" ] || return 1
+
+  local rhelre='s/\(Red\s*Hat\)[^0-9\.]*\([0-9\.]*\).*/RHEL \2/g'
+  local rhelver=$(cat $rhel_release | sed "$rhelre")
+  if [[ "$rhelver" =~ RHEL.* ]]; then
+    export STRONGLOOP_INSTALL_PLATFORM="RHEL"
+    return 0
+  else
+    if [[ "$rhelver" =~ Fedora.* ]]; then
+      export STRONGLOOP_INSTALL_PLATFORM="RHEL"
+      return 0
+    fi
+  fi
+
+  return 1
+
+}  #  End of function  rhel_check.
+
+
+
+
+#
+#  Determine linux distro.
+#
+#  Examples:
+#    determine_linux_distro
+#
+function determine_linux_distro() {
+  #  Check if we have uname.
+  $(which uname > /dev/null 2>&1) || return 1
+
+  export STRONGLOOP_INSTALL_OS=$(uname -s)
+  if [[ "$STRONGLOOP_INSTALL_OS" =~ Linux.* ]]; then
+    export STRONGLOOP_INSTALL_ARCH=$(uname -m)
+    ubuntu_check || rhel_check || return 1
+    return 0
+  fi
+
+  return 1
+
+}  #  End of function  determine_linux_distro.
+
+
+#
+#  Determine if Mac OSX
+#
+#  Examples:
+#    check_macosx
+#
+function check_macosx() {
+  #  Check if we have uname.
+  $(which uname > /dev/null 2>&1) || return 1
+
+  export STRONGLOOP_INSTALL_OS=$(uname -s)
+  if [ "$STRONGLOOP_INSTALL_OS" = "Darwin" ]; then
+    export STRONGLOOP_INSTALL_ARCH=$(uname -m)
+    export STRONGLOOP_INSTALL_PLATFORM="MacOSX"
+    return 0
+  fi
+
+  return 1
+
+}  #  End of function  determine_linux_distro.
+
+
+#
+#
+#  Sets the download uri path if not already set.
+#
+#  Examples:
+#    set_download_uri_base
+#
+function set_download_uri_base() {
+  if [ -z "$ASTEROID_DOWNLOAD_URI" ]; then
+     reldir="$lib_dir/../../asteroid-oracle-builder/build/$STRONGLOOP_INSTALL_PLATFORM" 
+     builder_path=$(cd -P -- "$reldir" && pwd -P)
+     export ASTEROID_DOWNLOAD_URI="file://$builder_path"
+  fi
+
+}  #  End of function  set_download_uri_base.
+
+
+#
+#  Print env variables for package, version, platform, os and architecture.
+#
+#  Examples:
+#    print_env_variables
+#
+function print_env_variables() {
+   print_message "- Env variables for ${ASTEROID_ORACLE_INSTALL_PACKAGE}:"
+   print_message "    Platform = $STRONGLOOP_INSTALL_PLATFORM"
+   print_message "          OS = $STRONGLOOP_INSTALL_OS"
+   print_message "        Arch = $STRONGLOOP_INSTALL_ARCH"
+   print_message "        Base = $ASTEROID_ORACLE_BASE_PACKAGE"
+   print_message "     Package = $ASTEROID_ORACLE_INSTALL_PACKAGE"
+   print_message "     Version = $ASTEROID_ORACLE_INSTALL_VERSION"
+   print_message "    Download = $ASTEROID_DOWNLOAD_URI"
+
+}  #  End of function  print_env_variables.
+
+
+#
+#
+#  Detects the platform we are running the install on.
+#
+#  Examples:
+#    detect_platform
+#
+function detect_platform() {
+  determine_linux_distro || check_macosx || die "Unsupported platform";
+  set_download_uri_base
+  print_env_variables
+  return 0
+
+}  #  End of function  detect_platform.
+
+
