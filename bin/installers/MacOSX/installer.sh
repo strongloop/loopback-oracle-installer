@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
 INSTALL_DIR=$(cd -P -- "$SCRIPT_DIR/.." && pwd -P)
