@@ -201,3 +201,73 @@ function detect_platform() {
 }  #  End of function  detect_platform.
 
 
+#
+#
+#  Extract package files.
+#
+#  Examples:
+#    extract_package_files
+#
+function extract_package_files() {
+  platform=$STRONGLOOP_INSTALL_PLATFORM
+  arch=$STRONGLOOP_INSTALL_ARCH
+  package=$ASTEROID_ORACLE_BASE_PACKAGE
+  version=$ASTEROID_ORACLE_INSTALL_VERSION
+  dluri=$ASTEROID_DOWNLOAD_URI
+
+  print_message "- StrongLoop Node Oracle $platform $arch installer"
+
+  #  Downloadable gzipped tarball.
+  targz="${package}_${platform}_${version}_${arch}.tar.gz"
+
+  #  Install to node modules directory if one exists.
+  nmdir="../node_modules"
+  [ -d "$nmdir" ] ||  nmdir="`pwd`/node_modules"
+
+  mkdir -p "$nmdir"
+
+  pushd "$nmdir" > /dev/null
+  rm -f "$targz"
+  print_message "- Downloading $targz ..."
+  if ! curl -o ./$targz  $dluri/$targz > /dev/null 2>&1; then
+      print_message "- Failed to download $dluri/$targz"
+      popd > /dev/null
+      return 1
+  fi
+
+  print_message "- Extracting $ASTEROID_DOWNLOAD_URI/$targz ..."
+  if ! tar -zxf $targz > /dev/null 2>&1; then
+    print_message "- Failed to extract $targz"
+    popd > /dev/null
+    return 1
+  fi
+
+  export OCI_DIR="$(pwd)/instantclient/"
+  print_message "- Oracle InstantClient dir = $OCI_DIR"
+  rm -f "$targz"
+  popd > /dev/null
+
+  return 0
+
+}  #  End of function  extract_package_files.
+
+
+function setup_configuration() {
+  ocidir=${1:-"$OCI_DIR"}
+
+  profile="$HOME/.bash_profile"
+  [ "`id -u`" = "0" ] && profile="/etc/bashrc"
+
+  touch "$profile"
+  if ! grep "$ocidir" "$profile" > /dev/null 2>&1; then
+    cat >> "$profile" << MYEOF
+#  `date`: Added by asteroid-oracle-installer.
+export DYLD_LIBRARY_PATH="\$DYLD_LIBRARY_PATH:$ocidir"
+MYEOF
+  fi
+
+  return 0
+
+}  #  End of function  setup_configuration.
+
+
