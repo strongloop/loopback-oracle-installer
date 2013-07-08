@@ -70,6 +70,10 @@ function ubuntu_check() {
     export STRONGLOOP_INSTALL_PLATFORM="Ubuntu"
     return 0
   fi
+  if [[ "$desc" =~ Debian.* ]]; then
+    export STRONGLOOP_INSTALL_PLATFORM="Ubuntu"
+    return 0
+  fi
 
   return 1
 
