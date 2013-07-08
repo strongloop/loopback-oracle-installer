@@ -91,11 +91,12 @@ function rhel_check() {
   if [[ "$rhelver" =~ RHEL.* ]]; then
     export STRONGLOOP_INSTALL_PLATFORM="RHEL"
     return 0
-  else
-    if [[ "$rhelver" =~ Fedora.* ]]; then
+  elif [[ "$rhelver" =~ Fedora.* ]]; then
       export STRONGLOOP_INSTALL_PLATFORM="RHEL"
       return 0
-    fi
+  elif [[ "$rhelver" =~ CentOS.* ]]; then
+      export STRONGLOOP_INSTALL_PLATFORM="RHEL"
+      return 0
   fi
 
   return 1
