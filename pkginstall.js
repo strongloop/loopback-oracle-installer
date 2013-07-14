@@ -8,6 +8,10 @@ var installer = path.join(inst_dir, 'bin', script);
 var args = [ '-d', '3' ];
 
 // console.log('DEBUG: Running command %s %s = ', installer, args);
+if(process.platform === 'win32') {
+  args = ['/s', '/c', installer, '-d', '3];
+  installer = 'cmd';
+}
 var child = spawn(installer, args, {stdio: 'inherit'});
 child.on('exit', function() {
   // console.log('DEBUG: %s exited: %s', installer, JSON.stringify(child) );
