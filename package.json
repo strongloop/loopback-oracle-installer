@@ -20,6 +20,8 @@
   },
 
   "dependencies": {
+    "request": "latest",
+    "tar": "latest"
   },
   "devDependencies": {},
   "bundleDependencies": [],
