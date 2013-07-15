@@ -52,64 +52,6 @@ function print_message() {
 
 }  #  End of function  print_message.
 
-
-#
-#  Checks if the linux distro is Ubuntu.
-#
-#  Examples:
-#    ubuntu_check
-#
-function ubuntu_check() {
-  local etc_issue="/etc/issue"
-  local ubuntu_rel="/usr/bin/lsb_release"
-  [ -f "$etc_issue" ] && desc=$(cat "$etc_issue" | sed 's/\\[a-z]//g')
-  [ -z "$desc" ] && [ -f "$ubuntu_rel" ] && \
-    desc=$($ubuntu_rel -d 2> /dev/null | sed 's/Description\:\s*//g')
-
-  if [[ "$desc" =~ Ubuntu.* ]]; then
-    export STRONGLOOP_INSTALL_PLATFORM="Ubuntu"
-    return 0
-  fi
-  if [[ "$desc" =~ Debian.* ]]; then
-    export STRONGLOOP_INSTALL_PLATFORM="Ubuntu"
-    return 0
-  fi
-
-  return 1
-
-}  #  End of function  ubuntu_check.
-
-
-#
-#  Checks if the linux distro is RHEL.
-#
-#  Examples:
-#    rhel_check
-#
-function rhel_check() {
-  local rhel_release="/etc/redhat-release"
-  [ -f "$rhel_release" ] || return 1
-
-  local rhelre='s/\(Red\s*Hat\)[^0-9\.]*\([0-9\.]*\).*/RHEL \2/g'
-  local rhelver=$(cat $rhel_release | sed "$rhelre")
-  if [[ "$rhelver" =~ RHEL.* ]]; then
-    export STRONGLOOP_INSTALL_PLATFORM="RHEL"
-    return 0
-  elif [[ "$rhelver" =~ Fedora.* ]]; then
-      export STRONGLOOP_INSTALL_PLATFORM="RHEL"
-      return 0
-  elif [[ "$rhelver" =~ CentOS.* ]]; then
-      export STRONGLOOP_INSTALL_PLATFORM="RHEL"
-      return 0
-  fi
-
-  return 1
-
-}  #  End of function  rhel_check.
-
-
-
-
 #
 #  Determine linux distro.
 #
@@ -123,7 +65,7 @@ function determine_linux_distro() {
   export STRONGLOOP_INSTALL_OS=$(uname -s)
   if [[ "$STRONGLOOP_INSTALL_OS" =~ Linux.* ]]; then
     export STRONGLOOP_INSTALL_ARCH=$(uname -m)
-    ubuntu_check || rhel_check || return 1
+    export STRONGLOOP_INSTALL_PLATFORM="Linux"
     return 0
   fi
 
