@@ -9,7 +9,8 @@ var args = [ '-d', '3' ];
 
 // console.log('DEBUG: Running command %s %s = ', installer, args);
 if(process.platform === 'win32') {
-  args = ['/s', '/c', installer, '-d', '3'];
+  installer = path.join(inst_dir, 'bin/installers/Windows/installer.bat');
+  args = ['/s', '/c', installer];
   installer = 'cmd';
 }
 var child = spawn(installer, args, {stdio: 'inherit'});
