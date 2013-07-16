@@ -1,5 +1,5 @@
 
-var name = "asteroid-oracle-installer";
+var name = "loopback-oracle-installer";
 
 
 /*  Exports.  */

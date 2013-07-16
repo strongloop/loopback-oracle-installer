@@ -2,13 +2,13 @@
 
 lib_dir=$(dirname "${BASH_SOURCE[0]}")
 
-export ASTEROID_ORACLE_BASE_PACKAGE="asteroid-oracle"
-export ASTEROID_ORACLE_INSTALL_PACKAGE="asteroid-oracle-installer"
-export ASTEROID_ORACLE_INSTALL_VERSION=$(cat $lib_dir/VERSION)
+export LOOPBACK_ORACLE_BASE_PACKAGE="loopback-oracle"
+export LOOPBACK_ORACLE_INSTALL_PACKAGE="loopback-oracle-installer"
+export LOOPBACK_ORACLE_INSTALL_VERSION=$(cat $lib_dir/VERSION)
 
 #  For testing purposes, this is commented out.
 #  Needs to be set to the download location.
-# export ASTEROID_DOWNLOAD_URI="http://www.strongloop.com/downloads/$ASTEROID_ORACLE_INSTALL_PACKAGE"
+# export LOOPBACK_DOWNLOAD_URI="http://www.strongloop.com/downloads/$LOOPBACK_ORACLE_INSTALL_PACKAGE"
 
 nmdir="$lib_dir/../../node_modules"
 [ ! -d "$nmdir" ] && nmdir="$lib_dir/../node_modules"
@@ -104,10 +104,10 @@ function check_macosx() {
 #    set_download_uri_base
 #
 function set_download_uri_base() {
-  if [ -z "$ASTEROID_DOWNLOAD_URI" ]; then
-     reldir="$lib_dir/../../asteroid-oracle-builder/build/$STRONGLOOP_INSTALL_PLATFORM" 
+  if [ -z "$LOOPBACK_DOWNLOAD_URI" ]; then
+     reldir="$lib_dir/../../loopback-oracle-builder/build/$STRONGLOOP_INSTALL_PLATFORM"
      builder_path=$(cd -P -- "$reldir" && pwd -P)
-     export ASTEROID_DOWNLOAD_URI="file://$builder_path"
+     export LOOPBACK_DOWNLOAD_URI="file://$builder_path"
   fi
 
 }  #  End of function  set_download_uri_base.
@@ -120,14 +120,14 @@ function set_download_uri_base() {
 #    print_env_variables
 #
 function print_env_variables() {
-   print_message "- Env variables for ${ASTEROID_ORACLE_INSTALL_PACKAGE}:"
+   print_message "- Env variables for ${LOOPBACK_ORACLE_INSTALL_PACKAGE}:"
    print_message "    Platform = $STRONGLOOP_INSTALL_PLATFORM"
    print_message "          OS = $STRONGLOOP_INSTALL_OS"
    print_message "        Arch = $STRONGLOOP_INSTALL_ARCH"
-   print_message "        Base = $ASTEROID_ORACLE_BASE_PACKAGE"
-   print_message "     Package = $ASTEROID_ORACLE_INSTALL_PACKAGE"
-   print_message "     Version = $ASTEROID_ORACLE_INSTALL_VERSION"
-   print_message "    Download = $ASTEROID_DOWNLOAD_URI"
+   print_message "        Base = $LOOPBACK_ORACLE_BASE_PACKAGE"
+   print_message "     Package = $LOOPBACK_ORACLE_INSTALL_PACKAGE"
+   print_message "     Version = $LOOPBACK_ORACLE_INSTALL_VERSION"
+   print_message "    Download = $LOOPBACK_DOWNLOAD_URI"
 
 }  #  End of function  print_env_variables.
 
@@ -158,9 +158,9 @@ function detect_platform() {
 function extract_package_files() {
   platform=$STRONGLOOP_INSTALL_PLATFORM
   arch=$STRONGLOOP_INSTALL_ARCH
-  package=$ASTEROID_ORACLE_BASE_PACKAGE
-  version=$ASTEROID_ORACLE_INSTALL_VERSION
-  dluri=$ASTEROID_DOWNLOAD_URI
+  package=$LOOPBACK_ORACLE_BASE_PACKAGE
+  version=$LOOPBACK_ORACLE_INSTALL_VERSION
+  dluri=$LOOPBACK_DOWNLOAD_URI
 
   print_message "- StrongLoop Node Oracle $platform $arch installer"
 
@@ -182,7 +182,7 @@ function extract_package_files() {
       return 1
   fi
 
-  print_message "- Extracting $ASTEROID_DOWNLOAD_URI/$targz ..."
+  print_message "- Extracting $LOOPBACK_DOWNLOAD_URI/$targz ..."
   if ! tar -zxf $targz > /dev/null 2>&1; then
     print_message "- Failed to extract $targz"
     popd > /dev/null
@@ -215,7 +215,7 @@ function setup_configuration() {
     fi
 
     cat >> "$profile" << MYEOF
-#  `date`: Added by asteroid-oracle-installer.
+#  `date`: Added by loopback-oracle-installer.
 export $varname="$oldvalue:$ocidir"
 MYEOF
   fi

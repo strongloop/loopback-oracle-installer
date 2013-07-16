@@ -1,8 +1,8 @@
 {
-  "name": "asteroid-oracle-installer",
+  "name": "loopback-oracle-installer",
   "version": "0.1.0",
-  "description": "StrongLoop Node.js Asteroid Oracle Installer",
-  "keywords": [ "StrongLoop", "Node.js", "Asteroid", "Oracle" ],
+  "description": "StrongLoop Node.js Loopback Oracle Installer",
+  "keywords": [ "StrongLoop", "Node.js", "Loopback", "Oracle" ],
   "author": {
     "name": "ramr",
     "email": "ramr@example.org",
@@ -11,7 +11,7 @@
   "homepage": "http://www.strongloop.com/",
   "repository": {
     "type": "git",
-    "url": "https://gitub.com/strongloop/asteroid-oracle-installer"
+    "url": "https://gitub.com/strongloop/loopback-oracle-installer"
   },
 
   "engines": {

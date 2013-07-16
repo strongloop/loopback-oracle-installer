@@ -25,7 +25,7 @@ Example:
 
 Or alternatively, you can add that path to /etc/ld.so.conf (you will
 require sudo access to do that).
-  echo "$OCI_DIR" | sudo tee -a /etc/ld.so.conf.d/asteroid_oracle.conf
+  echo "$OCI_DIR" | sudo tee -a /etc/ld.so.conf.d/loopback_oracle.conf
   sudo ldconfig
 
 MYEOF
