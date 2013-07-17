@@ -11,7 +11,7 @@ var dest = process.argv[3];
 if(!dest) {
     // Check if it is within the loopback-connector-oracle node_modules
     var parent = path.join(__dirname, '../../node_modules');
-    if(fs.existsSync()) {
+    if(fs.existsSync(parent)) {
         dest = parent;
     }
 }
