@@ -1,15 +1,13 @@
 #!/bin/bash
 
+export OCI_DIR=$1
+
 SCRIPT_DIR=$(dirname "${BASH_SOURCE[0]}")
 INSTALL_DIR=$(cd -P -- "$SCRIPT_DIR/.." && pwd -P)
 source "$INSTALL_DIR/../../lib/utils"
 
-#  Detect platform and set variables.
-detect_platform > /dev/null
-
-if extract_package_files; then
-  setup_configuration "$OCI_DIR"
-  cat << MYEOF
+setup_configuration "$OCI_DIR"
+cat << MYEOF
 
 ---------------------------------------------------------------------------
 The node-oracle module and the Oracle specific libraries have been
@@ -29,5 +27,5 @@ require sudo access to do that).
   sudo ldconfig
 
 MYEOF
-fi
+
 
