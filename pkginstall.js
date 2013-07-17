@@ -1,11 +1,23 @@
 var spawn = require('child_process').spawn;
 var path = require('path');
+var fs = require('fs');
 
 var info = require('./lib/detect');
 var download = require('./lib/download');
 
+var url = process.argv[2] || process.env.LOOPBACK_ORACLE_URL;
+var dest = process.argv[3];
+
+if(!dest) {
+    // Check if it is within the loopback-connector-oracle node_modules
+    var parent = path.join(__dirname, '../../node_modules');
+    if(fs.existsSync()) {
+        dest = parent;
+    }
+}
+
 // First download the archive
-download(process.argv[2], process.argv[3], function (err, result) {
+download(url, dest, function (err, result) {
     if(err) {
         process.exit(1);
     }
