@@ -8,11 +8,19 @@ var download = require('./lib/download');
 var url = process.argv[2] || process.env.LOOPBACK_ORACLE_URL;
 var dest = process.argv[3];
 
-if(!dest) {
+if (!dest) {
     // Check if it is within the loopback-connector-oracle node_modules
     var parent = path.join(__dirname, '../../node_modules');
-    if(fs.existsSync(parent)) {
+    if (fs.existsSync(parent)) {
         dest = parent;
+        try {
+            var pkg = require('../../package.json');  // The parent module
+            if (pkg.oracleInstaller) {
+                url = pkg.oracleInstaller.url || url;
+            }
+        } catch (err) {
+            // Ignore
+        }
     }
 }
 
