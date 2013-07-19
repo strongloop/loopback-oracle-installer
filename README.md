@@ -1,40 +1,47 @@
 loopback-oracle-installer
 =========================
 
-Loopback Oracle Installer
+Loopback Oracle Installer downloads/extracts the prebuilt Loopback Oracle installable bundle into parent module's
+node_modules folder and sets up the environment for Oracle instant client.
 
-
-Notes:
-
-1. The ubuntu 32 bit installer requires libaio:
-
-    sudo apt-get install libaio1
-
-2. First ensure that you run the make/build.sh from the
+1. First ensure that you run the make/build.sh from the
    `loopback-oracle-builder` and the package (gzipped tarball) is
    built correctly and uploaded to a publicly available site.
 
-3. Make sure the asteriod-oracle-builder and the loopback-oracle-installer
+2. Make sure the loopback-oracle-builder and the loopback-oracle-installer
    projects are siblings within the same directory heirarchy.
    This is only required if you want to test w/ the locally built
    gzipped tarball.
 
-4. To you want to run/test a local install, simply comment the
-   LOOPBACK_DOWNLOAD_URI in the `lib/utils` script and run:
+3. To you want to run/test a local install, run:
 
      cd loopback-oracle-installer
      npm install
 
-5. For production release, make sure you have edited the `lib/utils`
-   script and set the LOOPBACK_DOWNLOAD_URI appropriately.
+4. For production release, make sure you have the LOOPBACK_ORACLE_URL appropriately.
    Example:
 
-       base_uri=http://www.strongloop.com/
-       export LOOPBACK_DOWNLOAD_URI="$base_uri/downloads/$LOOPBACK_ORACLE_INSTALL_PACKAGE"
+        export LOOPBACK_ORACLE_URL=http://7e9918db41dd01dbf98e-ec15952f71452bc0809d79c86f5751b6.r22.cf1.rackcdn.com
+        or
+        export LOOPBACK_ORACLE_URL=/Users/rfeng/Projects/loopback/loopback-oracle-builder/build/MacOSX
+
 
    and then run:
 
        npm install loopback-oracle-installer
+
+5. Use loopback-oracle-installer as dependency for loopback-connector-oracle module
+
+Declare in package.json:
+
+           "dependencies": {
+             "loopback-oracle-installer": "git+ssh://git@github.com:strongloop/loopback-oracle-installer.git",
+             ...
+           },
+           "oracleInstaller": {
+             "url": "http://7e9918db41dd01dbf98e-ec15952f71452bc0809d79c86f5751b6.r22.cf1.rackcdn.com"
+           },
+
 
    Note this requires the packages to be available in npm. So please
    package and submit those to npmjs.org appropriately.
