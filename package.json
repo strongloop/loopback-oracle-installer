@@ -20,8 +20,11 @@
   },
 
   "dependencies": {
-    "request": "latest",
-    "tar": "latest"
+    "request": "2.22.0",
+    "tar": "0.1.17",
+    "fstream": "0.1.23",
+    "buffered-stream": "0.0.1",
+    "graceful-fs" : "2.0.0"
   },
   "devDependencies": {},
   "bundleDependencies": [],
