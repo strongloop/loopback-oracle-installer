@@ -3,7 +3,15 @@
 function setup_configuration() {
   ocidir=${1:-"$OCI_DIR"}
 
-  profile="$HOME/.bash_profile"
+  if [ -f "$HOME/.profile ]
+  then
+    profile="$HOME/.profile"
+  fi
+  if [ -f "$HOME/.bash_profile ]
+  then
+    profile="$HOME/.bash_profile"
+  fi
+
   [ "`id -u`" = "0" ] && profile="/etc/bashrc"
 
   touch "$profile"
