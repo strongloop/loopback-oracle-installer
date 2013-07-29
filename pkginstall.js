@@ -15,8 +15,8 @@ if (!dest) {
         dest = parent;
         try {
             var pkg = require('../../package.json');  // The parent module
-            if (pkg.oracleInstaller) {
-                url = pkg.oracleInstaller.url || url;
+            if (pkg.config && pkg.config.oracleUrl) {
+                url = pkg.config.oracleUrl || url;
             }
         } catch (err) {
             // Ignore
