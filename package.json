@@ -24,13 +24,19 @@
     "tar": "0.1.17",
     "fstream": "0.1.23",
     "buffered-stream": "0.0.1",
-    "graceful-fs" : "2.0.0"
+    "graceful-fs" : "2.0.0",
+    "mocha": "~1.8.2",
+    "blanket": "latest"
   },
   "devDependencies": {},
   "bundleDependencies": [],
 
   "scripts": {
-    "install": "node pkginstall.js"
+    "install": "node pkginstall.js",
+    "blanket": {
+      "pattern": "//^((?!(node_modules|test)).)*$/"
+    },
+    "coverage": "mocha -r blanket -R html-cov > coverage_loopback-oracle-installer.html"
   },
 
   "private": true,
