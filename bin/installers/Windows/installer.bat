@@ -1,7 +1,11 @@
 @echo off
 pushd %CD%
 cd %~dp0
-cd ../../../node_modules/instantclient
+if exist ../../../../instantclient (
+  cd ../../../../instantclient
+) else (
+  cd ../../../node_modules/instantclient
+)
 set ORAPATH=%CD%\vc11;%CD%
 @echo Oracle Path: %ORAPATH%
 
