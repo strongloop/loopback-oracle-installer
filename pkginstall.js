@@ -34,7 +34,14 @@ download(url, dest, function (err, result) {
     var inst_dir = path.dirname(process.argv[1]);
 
     var installer = path.join(inst_dir, 'bin/installers', info.platform, 'installer.sh');
-    var args = [ path.join(inst_dir, 'node_modules/instantclient') ];
+    // First check the child module
+    var icdir = path.join(inst_dir, 'node_modules/instantclient');
+    if (!fs.existsSync(icdir) {
+	// Now the peer module    
+        icdir = path.join(inst_dir, '../instantclient');
+    }	    
+
+    var args = [ icdir ];
 
 // console.log('DEBUG: Running command %s %s = ', installer, args);
     if (process.platform === 'win32') {
