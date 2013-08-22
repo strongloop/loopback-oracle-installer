@@ -36,7 +36,7 @@ download(url, dest, function (err, result) {
     var installer = path.join(inst_dir, 'bin/installers', info.platform, 'installer.sh');
     // First check the child module
     var icdir = path.join(inst_dir, 'node_modules/instantclient');
-    if (!fs.existsSync(icdir) {
+    if (!fs.existsSync(icdir)) {
 	// Now the peer module    
         icdir = path.join(inst_dir, '../instantclient');
     }	    
