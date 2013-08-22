@@ -24,7 +24,8 @@ function setup_configuration() {
   if ! grep "$ocidir" "$profile" > /dev/null 2>&1; then
     varname="LD_LIBRARY_PATH"
     oldvalue="\$LD_LIBRARY_PATH"
-    if [ "$STRONGLOOP_INSTALL_PLATFORM" = "MacOSX" ]; then
+    os=`uname -s`
+    if [ "$os" == "Darwin" ]; then
       varname="DYLD_LIBRARY_PATH"
       oldvalue="\$DYLD_LIBRARY_PATH"
     fi
