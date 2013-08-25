@@ -31,10 +31,12 @@ function setup_configuration() {
     fi
 
     cat >> "$profile" << MYEOF
-#  `date`: Added by loopback-oracle-installer.
+
+# __loopback-oracle-installer__:  `date`
 export $varname="$oldvalue:$ocidir"
+
 MYEOF
-  echo "$profile" has been modified.
+    echo "$profile" has been modified.
   fi
 
   return 0
