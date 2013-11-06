@@ -7,6 +7,7 @@ var download = require('./lib/download');
 
 var url = process.argv[2] || process.env.LOOPBACK_ORACLE_URL;
 var dest = process.argv[3];
+var version = null;
 
 if (!dest) {
     // Check if it is within the loopback-connector-oracle node_modules
@@ -17,6 +18,7 @@ if (!dest) {
             var pkg = require('../../package.json');  // The parent module
             if (pkg.config && pkg.config.oracleUrl) {
                 url = pkg.config.oracleUrl || url;
+                version = pkg.config.oracleVersion;
             }
         } catch (err) {
             // Ignore
@@ -25,7 +27,7 @@ if (!dest) {
 }
 
 // First download the archive
-download(url, dest, function (err, result) {
+download(url, version, dest, function (err, result) {
     if(err) {
         process.exit(1);
     }
@@ -46,7 +48,7 @@ download(url, dest, function (err, result) {
 // console.log('DEBUG: Running command %s %s = ', installer, args);
     if (process.platform === 'win32') {
         installer = path.join(inst_dir, 'bin/installers/Windows/installer.bat');
-        args = ['/s', '/c', installer];
+        args = ['/c', installer];
         installer = 'cmd';
     }
     var child = spawn(installer, args, {stdio: 'inherit'});
