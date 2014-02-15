@@ -1,6 +1,6 @@
 {
   "name": "loopback-oracle-installer",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Loopback Oracle Binary Installer",
   "keywords": [ "StrongLoop", "Node.js", "LoopBack", "Oracle" ],
   "homepage": "http://www.strongloop.com/",
