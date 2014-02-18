@@ -1,10 +1,7 @@
-
 var name = "loopback-oracle-installer";
-
 
 /*  Exports.  */
 exports.oracle = require('oracle');
-
 
 /*!  Print usage message.  */
 console.log("");
