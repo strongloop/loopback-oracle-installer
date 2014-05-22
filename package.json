@@ -1,6 +1,6 @@
 {
   "name": "loopback-oracle-installer",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Loopback Oracle Binary Installer",
   "keywords": [ "StrongLoop", "Node.js", "LoopBack", "Oracle" ],
   "homepage": "http://www.strongloop.com/",
@@ -13,11 +13,11 @@
     "npm": ">= 1.0.0"
   },
   "dependencies": {
-    "request": "2.34.0",
+    "request": "2.36.0",
     "tar": "0.1.19",
     "fstream": "0.1.25",
     "buffered-stream": "0.0.1",
-    "graceful-fs": "2.0.2"
+    "graceful-fs": "2.0.3"
   },
   "scripts": {
     "install": "node pkginstall.js"
