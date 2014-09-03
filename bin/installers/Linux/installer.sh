@@ -8,24 +8,22 @@ source "$INSTALL_DIR/../../lib/utils"
 
 setup_configuration "$OCI_DIR" "$HOME/strong-oracle.rc"
 cat << MYEOF
+-------------------------------------------------------------------------------
+"strong-oracle.rc" has been created in \$HOME. Please manually add the
+following to your ".bash_profile":
 
----------------------------------------------------------------------------
-The node-oracle module and the Oracle specific libraries have been
-installed in `pwd`.
+  source $HOME/strong-oracle.rc
 
-The default bashrc (/etc/bashrc) or  user's bash_profile (~/.bash_profile)
-paths have been modified to use this path. If you use a shell other than
-bash, please remember to set the LD_LIBRARY_PATH prior to using node.
+If you do not use bash as your default shell, please remember to set
+\$LD_LIBRARY_PATH prior to using node:
 
-Example:
-  \$ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$OCI_DIR"
+  export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$OCI_DIR"
 
+The node-oracle module and Oracle specific libraries have been installed in
+`pwd`. Alternatively, you can add that path to /etc/ld.so.conf (sudo required):
 
-Or alternatively, you can add that path to /etc/ld.so.conf (you will
-require sudo access to do that).
   echo "$OCI_DIR" | sudo tee -a /etc/ld.so.conf.d/loopback_oracle.conf
   sudo ldconfig
 
+-------------------------------------------------------------------------------
 MYEOF
-
-
