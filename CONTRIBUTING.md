@@ -14,7 +14,7 @@ Contributing to `loopback-oracle-installer` is easy. In a few simple steps:
   * Adhere to code style outlined in the [Google C++ Style Guide][] and
     [Google Javascript Style Guide][].
 
-  * Sign the [Contributor License Agreement](https://cla.strongloop.com/strongloop/loopback-oracle-installer)
+  * Sign the [Contributor License Agreement](https://cla.strongloop.com/agreements/strongloop/loopback-oracle-installer)
 
   * Submit a pull request through Github.
 
