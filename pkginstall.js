@@ -43,15 +43,16 @@ download(url, version, dest, function (err, result) {
     icdir = path.join(inst_dir, '../instantclient');
   }
 
-  var args = [ icdir ];
+  var args = [ installer, icdir ];
+  var cmd = '/bin/sh';
 
 // console.log('DEBUG: Running command %s %s = ', installer, args);
   if (process.platform === 'win32') {
     installer = path.join(inst_dir, 'bin/installers/Windows/installer.bat');
     args = ['/c', installer];
-    installer = 'cmd';
+    cmd = 'cmd';
   }
-  var child = spawn(installer, args, {stdio: 'inherit'});
+  var child = spawn(cmd, args, {stdio: 'inherit'});
   child.on('exit', function () {
     process.exit(child.exitCode);
   });
