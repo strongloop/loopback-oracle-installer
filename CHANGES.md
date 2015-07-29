@@ -1,3 +1,9 @@
+2015-07-29, Version 1.4.1
+=========================
+
+ * Allow env var to override config.oracleUrl (Raymond Feng)
+
+
 2015-03-24, Version 1.4.0
 =========================
 

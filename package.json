@@ -1,6 +1,6 @@
 {
   "name": "loopback-oracle-installer",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Loopback Oracle Binary Installer",
   "keywords": [
     "StrongLoop",
