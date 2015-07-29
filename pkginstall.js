@@ -17,7 +17,8 @@ if (!dest) {
     try {
       var pkg = require('../../package.json');  // The parent module
       if (pkg.config && pkg.config.oracleUrl) {
-        url = pkg.config.oracleUrl || url;
+        // Allow env var to override config.oracleUrl
+        url = url || pkg.config.oracleUrl;
         version = pkg.config.oracleVersion;
       }
     } catch (err) {
