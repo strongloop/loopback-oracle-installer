@@ -31,8 +31,5 @@
     "install": "node pkginstall.js"
   },
   "main": "index.js",
-  "license": {
-    "name": "Dual MIT/StrongLoop",
-    "url": "https://github.com/strongloop/loopback-oracle-installer/blob/master/LICENSE"
-  }
+  "license": "MIT"
 }
