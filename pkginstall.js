@@ -27,35 +27,38 @@ if (!dest) {
   }
 }
 
-// First download the archive
-download(url, version, dest, function (err, result) {
-  if (err) {
-    process.exit(1);
-  }
+// Check to see if `strong-oracle` is already installed, in case
+// they'd prefer compiling it themselves
+if(!fs.existsSync(path.join(parent, 'strong-oracle'))) {
+    // First download the archive
+    download(url, version, dest, function (err, result) {
+      if (err) {
+        process.exit(1);
+      }
 
-  // Now try to run post-installation scripts
-  var inst_dir = path.dirname(process.argv[1]);
+      // Now try to run post-installation scripts
+      var inst_dir = path.dirname(process.argv[1]);
 
-  var installer = path.join(inst_dir, 'bin/installers', info.platform, 'installer.sh');
-  // First check the child module
-  var icdir = path.join(inst_dir, 'node_modules/instantclient');
-  if (!fs.existsSync(icdir)) {
-    // Now the peer module
-    icdir = path.join(inst_dir, '../instantclient');
-  }
+      var installer = path.join(inst_dir, 'bin/installers', info.platform, 'installer.sh');
+      // First check the child module
+      var icdir = path.join(inst_dir, 'node_modules/instantclient');
+      if (!fs.existsSync(icdir)) {
+        // Now the peer module
+        icdir = path.join(inst_dir, '../instantclient');
+      }
 
-  var args = [ installer, icdir ];
-  var cmd = '/bin/sh';
+      var args = [ installer, icdir ];
+      var cmd = '/bin/sh';
 
-// console.log('DEBUG: Running command %s %s = ', installer, args);
-  if (process.platform === 'win32') {
-    installer = path.join(inst_dir, 'bin/installers/Windows/installer.bat');
-    args = ['/c', installer];
-    cmd = 'cmd';
-  }
-  var child = spawn(cmd, args, {stdio: 'inherit'});
-  child.on('exit', function () {
-    process.exit(child.exitCode);
-  });
-});
-
+    // console.log('DEBUG: Running command %s %s = ', installer, args);
+      if (process.platform === 'win32') {
+        installer = path.join(inst_dir, 'bin/installers/Windows/installer.bat');
+        args = ['/c', installer];
+        cmd = 'cmd';
+      }
+      var child = spawn(cmd, args, {stdio: 'inherit'});
+      child.on('exit', function () {
+        process.exit(child.exitCode);
+      });
+    });
+}
