@@ -29,7 +29,7 @@ if (!dest) {
 
 // Check to see if `strong-oracle` is already installed, in case
 // they'd prefer compiling it themselves
-if(!fs.existsSync(path.join(parent, 'strong-oracle'))) {
+if(process.env.npm_config_force || !fs.existsSync(path.join(parent, 'strong-oracle'))) {
     // First download the archive
     download(url, version, dest, function (err, result) {
       if (err) {
