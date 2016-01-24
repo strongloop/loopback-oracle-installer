@@ -1,3 +1,13 @@
+2016-01-24, Version 1.4.2
+=========================
+
+ * Add a better message to report not found (Raymond Feng)
+
+ * Refer to licenses with a link (Sam Roberts)
+
+ * Use strongloop conventions for licensing (Sam Roberts)
+
+
 2015-07-29, Version 1.4.1
 =========================
 
