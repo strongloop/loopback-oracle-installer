@@ -1,3 +1,9 @@
+2016-04-05, Version 1.4.3
+=========================
+
+ * Fix the installer for npm3 (Raymond Feng)
+
+
 2016-01-24, Version 1.4.2
 =========================
 
