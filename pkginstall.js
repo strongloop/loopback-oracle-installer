@@ -1,3 +1,8 @@
+// Copyright IBM Corp. 2013,2016. All Rights Reserved.
+// Node module: loopback-oracle-installer
+// This file is licensed under the MIT License.
+// License text available at https://opensource.org/licenses/MIT
+
 var spawn = require('child_process').spawn;
 var path = require('path');
 var fs = require('fs');
