@@ -1,3 +1,9 @@
+2016-05-04, Version 1.4.6
+=========================
+
+ * Fix typo and catch error (Raymond Feng)
+
+
 2016-05-04, Version 1.4.5
 =========================
 
