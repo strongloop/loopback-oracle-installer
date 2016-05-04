@@ -28,16 +28,19 @@ if (!dest) {
       url = url || pkg.config.oracleUrl;
       version = pkg.config.oracleVersion;
     }
-  } catch(err) {
-    // Now assume the installer is dep of loopback-connector-oracle
-    var pkg = require(path.join(__dirname, '../../package.json'));
-    if (pkg.config && pkg.config.oracleUrl) {
-      // Allow env var to override config.oracleUrl
-      url = url || pkg.config.oracleUrl;
-      version = pkg.config.oracleVersion;
-      dest = path.normalize(path.join(__dirname, '..'));
+  } catch (err) {
+    try {
+      // Now assume the installer is dep of loopback-connector-oracle
+      var pkg = require(path.join(__dirname, '../../package.json'));
+      if (pkg.config && pkg.config.oracleUrl) {
+        // Allow env var to override config.oracleUrl
+        url = url || pkg.config.oracleUrl;
+        version = pkg.config.oracleVersion;
+        dest = path.normalize(path.join(__dirname, '..'));
+      }
+    } catch (err) {
+      // Ignore
     }
-    // Ignore
   }
 }
 

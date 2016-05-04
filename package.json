@@ -11,7 +11,7 @@
   "homepage": "http://www.strongloop.com/",
   "repository": {
     "type": "git",
-    "url": "https://gitub.com/strongloop/loopback-oracle-installer"
+    "url": "https://github.com/strongloop/loopback-oracle-installer"
   },
   "engines": {
     "node": ">= 0.10.0",
