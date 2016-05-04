@@ -1,3 +1,9 @@
+2016-05-04, Version 1.4.5
+=========================
+
+ * Handle the package if the main module is loopback-connector-oracle (Raymond Feng)
+
+
 2016-05-03, Version 1.4.4
 =========================
 
@@ -59,6 +65,10 @@
 
  * Fix the url protocol for proxy detection (Raymond Feng)
 
+
+2014-02-28, Version 1.2.0
+=========================
+
  * Generate strong-oracle.rc under home directory (Raymond Feng)
 
  * Use strong-oracle module (Raymond Feng)
@@ -118,11 +128,6 @@
 ===========================================
 
  * Finalize package.json for sls-1.0.0 (Raymond Feng)
-
-
-2013-09-04, Version 1.2.0
-=========================
-
 
 
 2013-09-04, Version strongloopsuite-1.0.0-1
