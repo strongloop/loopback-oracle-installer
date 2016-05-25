@@ -3,11 +3,7 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-var spawn = require('child_process').spawn;
 var path = require('path');
-var fs = require('fs');
-
-var info = require('./lib/detect');
 var download = require('./lib/download');
 
 var url = process.argv[2] || process.env.LOOPBACK_ORACLE_URL;
@@ -44,40 +40,26 @@ if (!dest) {
   }
 }
 
-// First download the archive
-download(url, version, dest, function(err, result) {
-  if (err) {
-    process.exit(1);
-  }
-
-  // Now try to run post-installation scripts
-  var inst_dir = path.dirname(process.argv[1]);
-
-  var installer = path.join(inst_dir, 'bin/installers', info.platform, 'installer.sh');
-  var icdir;
-  if (dest) {
-    icdir = path.join(dest, 'instantclient');
+var downloadRequired = false;
+try {
+  if (!process.env.npm_config_force) {
+    var found = require.resolve('oracledb');
+    console.log('** Skipping oracledb as it already exists at %s)', path.dirname(found));
+    console.log('** To force download and re-installation, run npm install -f.');
   } else {
-    // First check the child module
-    icdir = path.join(inst_dir, 'node_modules/instantclient');
-    if (!fs.existsSync(icdir)) {
-      // Now the peer module
-      icdir = path.join(inst_dir, '../instantclient');
+    downloadRequired = true;
+  }
+} catch (e) {
+  downloadRequired = true;
+}
+
+if (downloadRequired) {
+  // First download the archive
+  download(url, version, dest, function(err, result) {
+    if (err) {
+      process.exit(1);
     }
-  }
-
-  var args = [ installer, icdir ];
-  var cmd = '/bin/sh';
-
-// console.log('DEBUG: Running command %s %s = ', installer, args);
-  if (process.platform === 'win32') {
-    installer = path.join(inst_dir, 'bin/installers/Windows/installer.bat');
-    args = ['/c', installer];
-    cmd = 'cmd';
-  }
-  var child = spawn(cmd, args, {stdio: 'inherit'});
-  child.on('exit', function () {
-    process.exit(child.exitCode);
   });
-});
+}
+
 
