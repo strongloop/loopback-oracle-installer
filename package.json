@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "buffered-stream": "^0.0.1",
+    "cross-spawn": "^4.0.2",
     "fs-extra": "^0.30.0",
     "fstream": "^1.0.3",
     "graceful-fs": "^4.1.3",
