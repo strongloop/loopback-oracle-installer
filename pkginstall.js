@@ -49,17 +49,19 @@ if (typeof dest === 'undefined' || dest == null) {
       dest = path.normalize(path.join(installerPath, 'node_modules'));
   }
 
-  // Find the package.json for loopback-oracle-installer
-  var pkg = require(path.join(installerPath, 'package.json'));
-  if (pkg.config && pkg.config.oracleUrl) {
-    // Allow env var to override config.oracleUrl
-    url = url || pkg.config.oracleUrl;
-    version = pkg.config.oracleVersion;
-    oracledbModule = pkg.config.driverModule;
-  }
+  // Find the package.json for loopback-connector-oracle
+  if (oracleConnectorPath) {
+    var pkg = require(path.join(oracleConnectorPath, 'package.json'));
+    if (pkg.config && pkg.config.oracleUrl) {
+      // Allow env var to override config.oracleUrl
+      url = url || pkg.config.oracleUrl;
+      version = pkg.config.oracleVersion;
+      oracledbModule = pkg.config.driverModule;
+    }
 
-  var installValues =  "Installation values -> oracledb location: " + dest + ' Prepackaged tarball url: ' + url + "  oracleversion: " + version + " oracledbmodule: " + oracledbModule;
-  console.log(installValues);
+    var installValues = "Installation values -> oracledb location: " + dest + ' Prepackaged tarball url: ' + url + "  oracleversion: " + version + " oracledbmodule: " + oracledbModule + '\n';
+    console.log(installValues);
+  }
 }
 
 var downloadRequired = false;
