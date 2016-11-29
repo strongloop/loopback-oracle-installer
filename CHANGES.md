@@ -1,3 +1,15 @@
+2016-11-29, Version 3.0.0
+=========================
+
+ * Default oracledb module to 'oracledb' (Raymond Feng)
+
+ * Improve user install experience (#15) (Rashmi Hunt)
+
+ * Update URLs in CONTRIBUTING.md (#12) (Ryan Graham)
+
+ * Switch to oracledb (Raymond Feng)
+
+
 2016-05-04, Version 1.4.6
 =========================
 
