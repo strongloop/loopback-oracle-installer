@@ -9,7 +9,7 @@ var download = require('./lib/download');
 var url = process.argv[2] || process.env.LOOPBACK_ORACLE_URL;
 var dest = process.argv[3];
 var version = null;
-var oracledbModule = null;
+var oracledbModule = 'oracledb';
 
 if (typeof dest === 'undefined' || dest == null) {
   var connector = false;
@@ -56,7 +56,7 @@ if (typeof dest === 'undefined' || dest == null) {
       // Allow env var to override config.oracleUrl
       url = url || pkg.config.oracleUrl;
       version = pkg.config.oracleVersion;
-      oracledbModule = pkg.config.driverModule;
+      oracledbModule = pkg.config.driverModule || oracledbModule;
     }
 
     var installValues = "Installation values -> oracledb location: " + dest + ' Prepackaged tarball url: ' + url + "  oracleversion: " + version + " oracledbmodule: " + oracledbModule + '\n';
