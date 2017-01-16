@@ -16,7 +16,7 @@ if (typeof dest === 'undefined' || dest == null) {
   var oracleConnectorPath;
 
   //find the directory of oracle-cocnnector-installer
-  var installerIndex = require.resolve('.');
+  var installerIndex = require.resolve('./');
   installerPath = path.dirname(installerIndex);
 
   try {
