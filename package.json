@@ -9,8 +9,7 @@
     "url": "https://github.com/strongloop/loopback-oracle-installer"
   },
   "engines": {
-    "node": ">= 0.10.0",
-    "npm": ">= 1.0.0"
+    "node": ">=4"
   },
   "dependencies": {
     "buffered-stream": "^0.0.1",
